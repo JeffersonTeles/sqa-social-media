@@ -3,7 +3,11 @@ name: E2E Tests
 on:
   push:
     branches:
-      - main
+      - feat/ci
+  pull_request:
+    branches:
+      - feat/ci
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 jobs:

@@ -81,13 +81,15 @@ Os testes Playwright esperam que a API esteja em `http://localhost:8080` e o fro
 
 O repositório possui dois workflows principais em `.github/workflows/`.
 
-`ci.yml` roda em pushes para `main` e em pull requests. Ele executa:
+`ci.yml` roda em pushes para a branch `feat/ci` e em pull requests. Ele executa:
 
 - testes e build da API;
 - testes do frontend com coverage;
 - análise do SonarQube após os jobs de API e frontend.
 
-`e2e.yml` roda em pushes para `main` e também pode ser acionado manualmente. Ele prepara MySQL, Java, Node.js e Playwright, sobe API e frontend no runner e executa os testes da pasta `e2e/`. Ao final, publica o relatório HTML do Playwright como artifact quando disponível.
+Para que a análise do SonarQube funcione no GitHub Actions, o repositório precisa ter o secret `SONAR_TOKEN` configurado em **Settings > Secrets and variables > Actions**. Esse token é usado pelo job `sonarqube` para autenticar a execução da análise.
+
+`e2e.yml` roda em pushes e pull requests para a branch `feat/ci`, e também pode ser acionado manualmente. Ele prepara MySQL, Java, Node.js e Playwright, sobe API e frontend no runner e executa os testes da pasta `e2e/`. Ao final, publica o relatório HTML do Playwright como artifact quando disponível.
 
 ## Documentações
 

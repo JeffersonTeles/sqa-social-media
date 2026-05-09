@@ -3,8 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - feat/ci
   pull_request:
+    branches:
+      - feat/ci
     types: [opened, synchronize, reopened]
 
 jobs:

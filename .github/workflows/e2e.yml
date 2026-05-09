@@ -79,13 +79,13 @@ jobs:
       - name: Build client
         working-directory: client
         env:
-          NEXT_PUBLIC_API_URL: http://localhost:8080
+          NEXT_PUBLIC_BASE_URL: http://localhost:8080
         run: npm run build
 
       - name: Start client
         working-directory: client
         env:
-          NEXT_PUBLIC_API_URL: http://localhost:8080
+          NEXT_PUBLIC_BASE_URL: http://localhost:8080
         run: |
           npm run start > ../client.log 2>&1 &
           for i in {1..60}; do

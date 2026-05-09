@@ -37,10 +37,10 @@ npm install
 npm run dev
 ```
 
-O frontend usa `NEXT_PUBLIC_API_URL` para definir a URL da API. Exemplo de `.env` em `client/`:
+O frontend usa `NEXT_PUBLIC_BASE_URL` para definir a URL da API. Exemplo de `.env` em `client/`:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8080
+NEXT_PUBLIC_BASE_URL=http://localhost:8080
 ```
 
 ## Testes

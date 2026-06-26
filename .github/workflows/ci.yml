@@ -1,0 +1,55 @@
+name: Testes automatizados
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Executar suíte de testes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            client/package-lock.json
+            tests/package-lock.json
+
+      - name: Instalar dependências do cliente
+        run: npm ci
+        working-directory: client
+
+      - name: Instalar dependências dos testes de sistema
+        run: npm ci
+        working-directory: tests
+
+      - name: Instalar navegador para testes E2E
+        run: npx playwright install --with-deps chrome
+        working-directory: tests
+
+      - name: Executar testes da API
+        run: ./mvnw test
+        working-directory: api
+
+      - name: Executar testes do cliente
+        run: npm test -- --runInBand
+        working-directory: client
+
+      - name: Executar testes E2E e de API
+        run: npm test
+        working-directory: tests
